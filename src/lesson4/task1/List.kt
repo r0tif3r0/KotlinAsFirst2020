@@ -2,8 +2,9 @@
 
 package lesson4.task1
 
+
 import lesson1.task1.discriminant
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -127,7 +128,11 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    return if (list.isEmpty())
+        0.0
+    else list.sum() / list.size
+}
 
 /**
  * Средняя (3 балла)
@@ -137,7 +142,15 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val sr = list.sum() / list.size
+    if (list.isEmpty())
+        return list
+    else for (i in 0 until list.size) {
+        list[i] = list[i] - sr
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -146,7 +159,15 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var c = 0
+    if (a.isEmpty() || b.isEmpty())
+        return c
+    else for (i in a.indices) {
+        c += a[i] * b[i]
+    }
+    return c
+}
 
 /**
  * Средняя (3 балла)
@@ -156,7 +177,16 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    var a = 0
+    if (p.isEmpty())
+        return a
+    else a = p[0]
+    for (i in 1 until p.size) {
+        a += p[i] * x.toDouble().pow(i.toDouble()).toInt()
+    }
+    return a
+}
 
 /**
  * Средняя (3 балла)
@@ -168,7 +198,19 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    var a: Int
+    var tmp: Int
+    if (list.isEmpty())
+        return list
+    else a = list[0]
+    for (i in 1 until list.size) {
+        tmp = list[i]
+        list[i] += a
+        a += tmp
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -177,7 +219,19 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    val list = mutableListOf<Int>()
+    var del = 2
+    var a = n
+    while (a != 1) {
+        while (a % del == 0) {
+            a /= del
+            list.add(del)
+        }
+        del++
+    }
+    return list
+}
 
 /**
  * Сложная (4 балла)
@@ -186,7 +240,19 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var str = ""
+    var del = 2
+    var a = n
+    while (a != 1) {
+        while (a % del == 0) {
+            a /= del
+            str += "$del*"
+        }
+        del++
+    }
+    return str.substring(0, str.length - 1)
+}
 
 /**
  * Средняя (3 балла)
@@ -250,4 +316,120 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var str1 = ""
+    var str2 = ""
+    val n1 = n / 1000
+    val n2 = n % 1000
+    str1 += when (n1 / 100) {
+        0 -> ""
+        1 -> "сто "
+        2 -> "двести "
+        3 -> "триста "
+        4 -> "четыреста "
+        5 -> "пятьсот "
+        6 -> "шестьсот "
+        7 -> "семьсот "
+        8 -> "восемьсот "
+        9 -> "девятьсот "
+        else -> ""
+    }
+    if (n1 / 10 % 10 == 1) {
+        str1 += when (n1 % 10) {
+            0 -> "десять тысяч "
+            1 -> "одиннадцать тысяч "
+            2 -> "двенадцать тысяч "
+            3 -> "тринадцать тысяч "
+            4 -> "четырнадцать тысяч "
+            5 -> "пятнадцать тысяч "
+            6 -> "шестнадцать тысяч "
+            7 -> "семнадцать тысяч "
+            8 -> "восемнадцать тысяч "
+            9 -> "девятнадцать тысяч "
+            else -> ""
+        }
+    } else {
+        str1 += when (n1 / 10 % 10) {
+            0 -> ""
+            2 -> "двадцать "
+            3 -> "тридцать "
+            4 -> "сорок "
+            5 -> "пятьдесят "
+            6 -> "шестьдесят "
+            7 -> "семьдесят "
+            8 -> "восемьдесят "
+            9 -> "девяносто "
+            else -> ""
+        }
+        str1 += when (n1 % 10) {
+            0 -> ""
+            1 -> "одна тысяча "
+            2 -> "две тысячи "
+            3 -> "три тысячи "
+            4 -> "четыре тысячи "
+            5 -> "пять тысяч"
+            6 -> "шесть тысяч"
+            7 -> "семь  тысяч"
+            8 -> "восемь тысяч"
+            9 -> "девять тысяч"
+            else -> ""
+        }
+    }
+    str2 += when (n2 / 100) {
+        0 -> ""
+        1 -> "сто "
+        2 -> "двести "
+        3 -> "триста "
+        4 -> "четыреста "
+        5 -> "пятьсот "
+        6 -> "шестьсот "
+        7 -> "семьсот "
+        8 -> "восемьсот "
+        9 -> "девятьсот "
+        else -> ""
+    }
+    if (n2 / 10 % 10 == 1) {
+        str2 += when (n2 % 10) {
+            0 -> "десять"
+            1 -> "одиннадцать "
+            2 -> "двенадцать "
+            3 -> "тринадцать "
+            4 -> "четырнадцать "
+            5 -> "пятнадцать "
+            6 -> "шестнадцать "
+            7 -> "семнадцать "
+            8 -> "восемнадцать "
+            9 -> "девятнадцать "
+            else -> ""
+        }
+    } else {
+        str2 += when (n2 / 10 % 10) {
+            0 -> ""
+            2 -> "двадцать "
+            3 -> "тридцать "
+            4 -> "сорок "
+            5 -> "пятьдесят "
+            6 -> "шестьдесят "
+            7 -> "семьдесят "
+            8 -> "восемьдесят "
+            9 -> "девяносто "
+            else -> ""
+        }
+        str2 += when (n2 % 10) {
+            0 -> ""
+            1 -> "один "
+            2 -> "два "
+            3 -> "три "
+            4 -> "четыре "
+            5 -> "пять "
+            6 -> "шесть "
+            7 -> "семь  "
+            8 -> "восемь "
+            9 -> "девять "
+            else -> ""
+        }
+    }
+    return if (n1 % 10 == 0 && n1 != 0)
+        (str1 + "тысяч " + str2).trim()
+    else (str1 + str2).trim()
+}

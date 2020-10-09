@@ -2,7 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -72,7 +72,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var i = 0
+    var num = n
+    if (n == 0) return 1
+    while (num > 0) {
+        num /= 10
+        i += 1
+    }
+    return i
+}
 
 /**
  * Простая (2 балла)
@@ -80,21 +89,47 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var a = 1
+    var ap = 1
+    var i: Int
+    for (m in 3..n) {
+        i = a
+        a += ap
+        ap = i
+    }
+    return a
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    for (m in 2..sqrt(n.toDouble()).toInt())
+        if (n % m == 0) {
+            return m
+        }
+    return n
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var del = 0
+    for (m in 2..sqrt(n.toDouble()).toInt())
+        if (n % m == 0) {
+            del = m
+            break
+        }
+    if (del == 0)
+        return 1
+    return n / del
+}
 
 /**
  * Простая (2 балла)
@@ -120,7 +155,18 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var a = m
+    var b = n
+    while (a != 0 && b != 0) {
+        if (a > b)
+            a %= b
+        else
+            b %= a
+    }
+    if (a == 0) return m * n / b
+    return m * n / a
+}
 
 /**
  * Средняя (3 балла)
@@ -129,7 +175,17 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var a = m
+    var b = n
+    while (a != 0 && b != 0) {
+        if (a > b)
+            a %= b
+        else
+            b %= a
+    }
+    return b == 1 || a == 1
+}
 
 /**
  * Средняя (3 балла)
