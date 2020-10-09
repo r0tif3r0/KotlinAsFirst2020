@@ -186,6 +186,7 @@ fun polynom(p: List<Int>, x: Int): Int {
         a += p[i] * x.toDouble().pow(i.toDouble()).toInt()
     }
     return a
+
 }
 
 /**
