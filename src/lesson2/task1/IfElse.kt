@@ -3,8 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.max
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -69,13 +68,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String = when {
-    (age in 11..19) -> "$age лет"
-    (age in 111..119) -> "$age лет"
+    (age % 100 in 11..19) -> "$age лет"
     age % 10 == 0 -> "$age лет"
     age % 10 == 1 -> "$age год"
     (age % 10 in 2..4) -> "$age года"
     (age % 10 in 5..9) -> "$age лет"
-    else -> "Вам точно столько лет?"
+    else -> "Ошибка при вводе значения"
 }
 
 /**
@@ -141,12 +139,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        (b in c until d && a < c) -> b - c
-        (b > d && a < c) -> d - c
-        (d in a until b && c < a) -> d - a
-        (d > b && c < a) -> b - a
-        (b == c || a == d) -> 0
-        else -> -1
-    }
+    return if (d >= a && c <= b)
+        abs(max(a, c) - min(b, d))
+    else -1
 }

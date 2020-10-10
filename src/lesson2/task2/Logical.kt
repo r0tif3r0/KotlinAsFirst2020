@@ -62,10 +62,7 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    var max = a
-    if (b > max) max = b
-    else if (c > max) max = c
-    when (max) {
+    when (maxOf(a, b, c)) {
         a -> if ((b <= r && c <= s) || (c <= r && b <= s))
             return (true)
         b -> if ((a <= r && c <= s) || (c <= r && a <= s))
