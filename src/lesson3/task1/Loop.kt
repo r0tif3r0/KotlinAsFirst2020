@@ -186,11 +186,11 @@ fun revert(n: Int): Int {
     var n1 = 0
     var n0 = n
     val num = digitNumber(n)
-    if (num < 2)
-        return n
-    else for (i in 0 until num) {
-        n1 += n0 % 10 * (10.0.pow((num - i - 1).toDouble())).toInt()
+    var st = num - 1
+    for (i in 0 until num) {
+        n1 += n0 % 10 * (10.0.pow(st).toInt())
         n0 /= 10
+        st -= 1
     }
     return n1
 }
@@ -205,14 +205,9 @@ fun revert(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun isPalindrome(n: Int): Boolean {
-    if (digitNumber(n) == 1)
-        return true
-    val n1 = if (digitNumber(n) % 2 == 1) {
-        n / 10.0.pow(digitNumber(n) / 2 + 1).toInt()
-    } else {
-        n / 10.0.pow(digitNumber(n) / 2).toInt()
-    }
-    val n2 = n % 10.0.pow(digitNumber(n) / 2).toInt()
+    val del = (digitNumber(n) / 2 + 0.5).toInt()
+    val n1 = n / 10.0.pow(del).toInt()
+    val n2 = n % 10.0.pow(digitNumber(n) - del).toInt()
     return revert(n1) == n2
 }
 
