@@ -118,11 +118,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    if (minDivisor(n) == 0)
-        return 1
-    return n / minDivisor(n)
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -177,7 +173,7 @@ fun isCoPrime(m: Int, n: Int): Boolean =
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean = sqrt(n.toDouble()).toInt().toDouble().pow(2) >= m
 
 /**
  * Средняя (3 балла)
@@ -186,7 +182,18 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var n1 = 0
+    var n0 = n
+    val num = digitNumber(n)
+    if (num < 2)
+        return n
+    else for (i in 0 until num) {
+        n1 += n0 % 10 * (10.0.pow((num - i - 1).toDouble())).toInt()
+        n0 /= 10
+    }
+    return n1
+}
 
 /**
  * Средняя (3 балла)
@@ -197,7 +204,17 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    if (digitNumber(n) == 1)
+        return true
+    val n1 = if (digitNumber(n) % 2 == 1) {
+        n / 10.0.pow(digitNumber(n) / 2 + 1).toInt()
+    } else {
+        n / 10.0.pow(digitNumber(n) / 2).toInt()
+    }
+    val n2 = n % 10.0.pow(digitNumber(n) / 2).toInt()
+    return revert(n1) == n2
+}
 
 /**
  * Средняя (3 балла)
@@ -207,7 +224,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val num = n % 10
+    var n1 = n / 10
+    for (i in 1 until digitNumber(n)) {
+        if (num != n1 % 10)
+            return true
+        n1 /= 10
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
