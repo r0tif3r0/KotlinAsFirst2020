@@ -430,7 +430,7 @@ fun russian(n: Int): String {
             else -> ""
         }
     }
-    return if (n1 % 10 == 0 && n1 != 0)
+    return if (n1 % 10 == 0 && n1 != 0 && n1 % 100 != 10)
         (str1 + "тысяч " + str2).trim()
     else (str1 + str2).trim()
 }
