@@ -186,11 +186,11 @@ fun revert(n: Int): Int {
     var n1 = 0
     var n0 = n
     val num = digitNumber(n)
-    var st = num - 1
+    var mn: Int
     for (i in 0 until num) {
-        n1 += n0 % 10 * (10.0.pow(st).toInt())
+        mn = 10.0.pow(num - 1 - i).toInt()
+        n1 += n0 % 10 * mn
         n0 /= 10
-        st -= 1
     }
     return n1
 }
