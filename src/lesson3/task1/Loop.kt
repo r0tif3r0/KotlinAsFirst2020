@@ -91,9 +91,8 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var a = 1
     var ap = 1
-    var i: Int
     for (m in 3..n) {
-        i = a
+        val i = a
         a += ap
         ap = i
     }
@@ -185,11 +184,8 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = sqrt(n.toDouble()).toInt().to
 fun revert(n: Int): Int {
     var n1 = 0
     var n0 = n
-    val num = digitNumber(n)
-    var mn: Int
-    for (i in 0 until num) {
-        mn = 10.0.pow(num - 1 - i).toInt()
-        n1 += n0 % 10 * mn
+    for (i in 0 until digitNumber(n)) {
+        n1 = n1 * 10 + n0 % 10
         n0 /= 10
     }
     return n1

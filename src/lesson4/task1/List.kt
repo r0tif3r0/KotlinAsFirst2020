@@ -129,8 +129,7 @@ fun abs(v: List<Double>): Double = TODO()
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    return if (list.isEmpty())
-        0.0
+    return if (list.isEmpty()) 0.0
     else list.sum() / list.size
 }
 
@@ -201,12 +200,11 @@ fun polynom(p: List<Int>, x: Int): Int {
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
     var a: Int
-    var tmp: Int
     if (list.isEmpty())
         return list
     else a = list[0]
     for (i in 1 until list.size) {
-        tmp = list[i]
+        val tmp = list[i]
         list[i] += a
         a += tmp
     }
@@ -318,51 +316,52 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var str1 = ""
-    var str2 = ""
-    val n1 = n / 1000
-    val n2 = n % 1000
-    str1 += when (n1 / 100) {
-        0 -> ""
-        1 -> "сто "
-        2 -> "двести "
-        3 -> "триста "
-        4 -> "четыреста "
-        5 -> "пятьсот "
-        6 -> "шестьсот "
-        7 -> "семьсот "
-        8 -> "восемьсот "
-        9 -> "девятьсот "
-        else -> ""
-    }
-    if (n1 / 10 % 10 == 1) {
-        str1 += when (n1 % 10) {
-            0 -> "десять тысяч "
-            1 -> "одиннадцать тысяч "
-            2 -> "двенадцать тысяч "
-            3 -> "тринадцать тысяч "
-            4 -> "четырнадцать тысяч "
-            5 -> "пятнадцать тысяч "
-            6 -> "шестнадцать тысяч "
-            7 -> "семнадцать тысяч "
-            8 -> "восемнадцать тысяч "
-            9 -> "девятнадцать тысяч "
-            else -> ""
-        }
+    val hundreds = listOf(
+        "",
+        "сто ",
+        "двести ",
+        "триста ",
+        "четыреста ",
+        "пятьсот ",
+        "шестьсот ",
+        "семьсот ",
+        "восемьсот ",
+        "девятьсот "
+    )
+    val decades = listOf(
+        "",
+        "десять",
+        "двадцать ",
+        "тридцать ",
+        "сорок ",
+        "пятьдесят ",
+        "шестьдесят ",
+        "семьдесят ",
+        "восемьдесят ",
+        "девяносто "
+    )
+    val extradecades = listOf(
+        "",
+        "одиннадцать ",
+        "двенадцать ",
+        "тринадцать ",
+        "четырнадцать ",
+        "пятнадцать ",
+        "шестнадцать ",
+        "семнадцать ",
+        "восемнадцать ",
+        "девятнадцать "
+    )
+    var thousandstr = ""
+    var hundredstr = ""
+    val thousandnum = n / 1000
+    val hundrednum = n % 1000
+    thousandstr += hundreds[thousandnum / 100]
+    if (thousandnum / 10 % 10 == 1) {
+        thousandstr += extradecades[thousandnum % 10]
     } else {
-        str1 += when (n1 / 10 % 10) {
-            0 -> ""
-            2 -> "двадцать "
-            3 -> "тридцать "
-            4 -> "сорок "
-            5 -> "пятьдесят "
-            6 -> "шестьдесят "
-            7 -> "семьдесят "
-            8 -> "восемьдесят "
-            9 -> "девяносто "
-            else -> ""
-        }
-        str1 += when (n1 % 10) {
+        thousandstr += decades[thousandnum / 10 % 10]
+        thousandstr += when (thousandnum % 10) {
             0 -> ""
             1 -> "одна тысяча "
             2 -> "две тысячи "
@@ -376,47 +375,12 @@ fun russian(n: Int): String {
             else -> ""
         }
     }
-    str2 += when (n2 / 100) {
-        0 -> ""
-        1 -> "сто "
-        2 -> "двести "
-        3 -> "триста "
-        4 -> "четыреста "
-        5 -> "пятьсот "
-        6 -> "шестьсот "
-        7 -> "семьсот "
-        8 -> "восемьсот "
-        9 -> "девятьсот "
-        else -> ""
-    }
-    if (n2 / 10 % 10 == 1) {
-        str2 += when (n2 % 10) {
-            0 -> "десять"
-            1 -> "одиннадцать "
-            2 -> "двенадцать "
-            3 -> "тринадцать "
-            4 -> "четырнадцать "
-            5 -> "пятнадцать "
-            6 -> "шестнадцать "
-            7 -> "семнадцать "
-            8 -> "восемнадцать "
-            9 -> "девятнадцать "
-            else -> ""
-        }
+    hundredstr += hundreds[hundrednum / 100]
+    if (hundrednum / 10 % 10 == 1) {
+        hundredstr += extradecades[hundrednum % 10]
     } else {
-        str2 += when (n2 / 10 % 10) {
-            0 -> ""
-            2 -> "двадцать "
-            3 -> "тридцать "
-            4 -> "сорок "
-            5 -> "пятьдесят "
-            6 -> "шестьдесят "
-            7 -> "семьдесят "
-            8 -> "восемьдесят "
-            9 -> "девяносто "
-            else -> ""
-        }
-        str2 += when (n2 % 10) {
+        hundredstr += decades[hundrednum / 10 % 10]
+        hundredstr += when (hundrednum % 10) {
             0 -> ""
             1 -> "один "
             2 -> "два "
@@ -430,7 +394,6 @@ fun russian(n: Int): String {
             else -> ""
         }
     }
-    return if (n1 % 10 == 0 && n1 != 0 && n1 % 100 != 10)
-        (str1 + "тысяч " + str2).trim()
-    else (str1 + str2).trim()
+    return if (thousandnum != 0 && thousandnum % 10 == 0 || thousandnum / 10 % 10 == 1 && thousandnum % 10 != 0) (thousandstr + "тысяч " + hundredstr).trim()
+    else (thousandstr + hundredstr).trim()
 }
