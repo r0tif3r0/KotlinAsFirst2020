@@ -199,10 +199,8 @@ fun polynom(p: List<Int>, x: Int): Int {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    var a: Int
-    if (list.isEmpty())
-        return list
-    else a = list[0]
+    if (list.isEmpty()) return list
+    var a = list[0]
     for (i in 1 until list.size) {
         val tmp = list[i]
         list[i] += a
@@ -315,49 +313,49 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
+val hundreds = listOf(
+    "",
+    "сто ",
+    "двести ",
+    "триста ",
+    "четыреста ",
+    "пятьсот ",
+    "шестьсот ",
+    "семьсот ",
+    "восемьсот ",
+    "девятьсот "
+)
+val decades = listOf(
+    "",
+    "десять ",
+    "двадцать ",
+    "тридцать ",
+    "сорок ",
+    "пятьдесят ",
+    "шестьдесят ",
+    "семьдесят ",
+    "восемьдесят ",
+    "девяносто "
+)
+val extradecades = listOf(
+    "",
+    "одиннадцать ",
+    "двенадцать ",
+    "тринадцать ",
+    "четырнадцать ",
+    "пятнадцать ",
+    "шестнадцать ",
+    "семнадцать ",
+    "восемнадцать ",
+    "девятнадцать "
+)
 fun russian(n: Int): String {
-    val hundreds = listOf(
-        "",
-        "сто ",
-        "двести ",
-        "триста ",
-        "четыреста ",
-        "пятьсот ",
-        "шестьсот ",
-        "семьсот ",
-        "восемьсот ",
-        "девятьсот "
-    )
-    val decades = listOf(
-        "",
-        "десять",
-        "двадцать ",
-        "тридцать ",
-        "сорок ",
-        "пятьдесят ",
-        "шестьдесят ",
-        "семьдесят ",
-        "восемьдесят ",
-        "девяносто "
-    )
-    val extradecades = listOf(
-        "",
-        "одиннадцать ",
-        "двенадцать ",
-        "тринадцать ",
-        "четырнадцать ",
-        "пятнадцать ",
-        "шестнадцать ",
-        "семнадцать ",
-        "восемнадцать ",
-        "девятнадцать "
-    )
     var thousandstr = ""
     var hundredstr = ""
     val thousandnum = n / 1000
     val hundrednum = n % 1000
     thousandstr += hundreds[thousandnum / 100]
-    if (thousandnum / 10 % 10 == 1) {
+    if (thousandnum / 10 % 10 == 1 && thousandnum % 10 != 0) {
         thousandstr += extradecades[thousandnum % 10]
     } else {
         thousandstr += decades[thousandnum / 10 % 10]
