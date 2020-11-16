@@ -362,7 +362,7 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
     list.sortedByDescending { it.second }
     for ((first) in list) {
         if (tmpcap != 0) {
-            if (tmpcap > treasures.getValue(first).first) {
+            if (tmpcap >= treasures.getValue(first).first) {
                 res.add(first)
                 tmpcap -= treasures.getValue(first).first
             }

@@ -374,7 +374,7 @@ fun russian(n: Int): String {
         }
     }
     hundredstr += hundreds[hundrednum / 100]
-    if (hundrednum / 10 % 10 == 1) {
+    if (hundrednum / 10 % 10 == 1 && hundrednum % 10 != 0) {
         hundredstr += extradecades[hundrednum % 10]
     } else {
         hundredstr += decades[hundrednum / 10 % 10]
