@@ -207,7 +207,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var minStuff = ""
+    var minStuff = "null"
     var minN = 0.0
     for ((t, p) in stuff)
         if (p.first == kind)
@@ -219,7 +219,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
                     minStuff = t
                     minN = p.second
                 }
-    return if (minStuff == "") null
+    return if (minStuff == "null") null
     else minStuff
 }
 
@@ -355,11 +355,11 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
     val res = mutableSetOf<String>()
-    val list = mutableListOf<Pair<String, Int>>()
+    var list = mutableListOf<Pair<String, Int>>()
     var tmpcap = capacity
     for ((k, v) in treasures)
         list.add(Pair(k, v.second / v.first))
-    list.sortedByDescending { it.second }
+    list = list.sortedByDescending { it.second }.toMutableList()
     for ((first) in list) {
         if (tmpcap != 0) {
             if (tmpcap >= treasures.getValue(first).first) {
