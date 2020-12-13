@@ -12,6 +12,11 @@ class HexTests {
     @Tag("3")
     fun hexPointDistance() {
         assertEquals(5, HexPoint(6, 1).distance(HexPoint(1, 4)))
+        assertEquals(8, HexPoint(0, 6).distance(HexPoint(8, 1)))
+        assertEquals(4, HexPoint(5, 1).distance(HexPoint(3, 5)))
+        assertEquals(2, HexPoint(4, 2).distance(HexPoint(4, 4)))
+        assertEquals(3, HexPoint(3, 3).distance(HexPoint(5, 0)))
+        assertEquals(3, HexPoint(5, 0).distance(HexPoint(3, 3)))
     }
 
     @Test
@@ -28,11 +33,17 @@ class HexTests {
     }
 
     @Test
+    fun hexagonBorderPoints() {
+        print(Hexagon(HexPoint(4, 2), 0).borderPoints())
+    }
+
+    @Test
     @Tag("2")
     fun hexSegmentValid() {
         assertTrue(HexSegment(HexPoint(1, 3), HexPoint(5, 3)).isValid())
+        assertTrue(HexSegment(HexPoint(2, 3), HexPoint(3, 3)).isValid())
         assertTrue(HexSegment(HexPoint(3, 1), HexPoint(3, 6)).isValid())
-        assertTrue(HexSegment(HexPoint(1, 5), HexPoint(4, 2)).isValid())
+        assertTrue(HexSegment(HexPoint(5, 3), HexPoint(7, 1)).isValid())
         assertFalse(HexSegment(HexPoint(3, 1), HexPoint(6, 2)).isValid())
     }
 
@@ -113,6 +124,34 @@ class HexTests {
                 HexPoint(y = 5, x = 3)
             ), pathBetweenHexes(HexPoint(y = 2, x = 2), HexPoint(y = 5, x = 3))
         )
+        assertEquals(
+            listOf(
+                HexPoint(y = 3, x = 4),
+                HexPoint(y = 2, x = 4),
+                HexPoint(y = 1, x = 5)
+            ), pathBetweenHexes(HexPoint(y = 3, x = 4), HexPoint(y = 1, x = 5))
+        )
+        assertEquals(
+            listOf(
+                HexPoint(y = 2, x = 5),
+                HexPoint(y = 1, x = 5)
+            ), pathBetweenHexes(HexPoint(y = 2, x = 5), HexPoint(y = 1, x = 5))
+        )
+        assertEquals(
+            listOf(
+                HexPoint(y = 4, x = 2),
+                HexPoint(y = 4, x = 3),
+                HexPoint(y = 4, x = 4)
+            ), pathBetweenHexes(HexPoint(y = 4, x = 2), HexPoint(y = 4, x = 4))
+        )
+        assertEquals(
+            listOf(
+                HexPoint(y = 2, x = 4),
+                HexPoint(y = 3, x = 3),
+                HexPoint(y = 4, x = 3),
+                HexPoint(y = 5, x = 3)
+            ), pathBetweenHexes(HexPoint(y = 2, x = 4), HexPoint(y = 5, x = 3))
+        )
     }
 
     @Test
@@ -124,6 +163,23 @@ class HexTests {
         )
         assertNull(
             hexagonByThreePoints(HexPoint(3, 1), HexPoint(2, 3), HexPoint(5, 4))
+        )
+        assertEquals(
+            Hexagon(HexPoint(5, 0), 3),
+            hexagonByThreePoints(HexPoint(2, 3), HexPoint(3, 3), HexPoint(5, 3))
+        )
+        assertEquals(
+            Hexagon(HexPoint(3, 3), 0),
+            hexagonByThreePoints(HexPoint(3, 3), HexPoint(3, 3), HexPoint(3, 3))
+        )
+        assertEquals(
+            Hexagon(HexPoint(4, 3), 3),
+            hexagonByThreePoints(HexPoint(4, 6), HexPoint(1, 5), HexPoint(7, 0))
+        )
+
+        assertEquals(
+            Hexagon(HexPoint(4, 2), 2),
+            hexagonByThreePoints(HexPoint(3, 4), HexPoint(2, 3), HexPoint(6, 1))
         )
         assertEquals(
             3,
@@ -139,5 +195,4 @@ class HexTests {
         assertEquals(3, result.radius)
         assertTrue(points.all { result.contains(it) })
     }
-
 }

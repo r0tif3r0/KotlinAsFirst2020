@@ -337,7 +337,7 @@ val decades = listOf(
     "восемьдесят ",
     "девяносто "
 )
-val extradecades = listOf(
+val extraDecades = listOf(
     "",
     "одиннадцать ",
     "двенадцать ",
@@ -350,16 +350,16 @@ val extradecades = listOf(
     "девятнадцать "
 )
 fun russian(n: Int): String {
-    var thousandstr = ""
-    var hundredstr = ""
-    val thousandnum = n / 1000
-    val hundrednum = n % 1000
-    thousandstr += hundreds[thousandnum / 100]
-    if (thousandnum / 10 % 10 == 1 && thousandnum % 10 != 0) {
-        thousandstr += extradecades[thousandnum % 10]
+    var thousandStr = ""
+    var hundredStr = ""
+    val thousandNum = n / 1000
+    val hundredNum = n % 1000
+    thousandStr += hundreds[thousandNum / 100]
+    if (thousandNum / 10 % 10 == 1 && thousandNum % 10 != 0) {
+        thousandStr += extraDecades[thousandNum % 10]
     } else {
-        thousandstr += decades[thousandnum / 10 % 10]
-        thousandstr += when (thousandnum % 10) {
+        thousandStr += decades[thousandNum / 10 % 10]
+        thousandStr += when (thousandNum % 10) {
             0 -> ""
             1 -> "одна тысяча "
             2 -> "две тысячи "
@@ -373,12 +373,12 @@ fun russian(n: Int): String {
             else -> ""
         }
     }
-    hundredstr += hundreds[hundrednum / 100]
-    if (hundrednum / 10 % 10 == 1 && hundrednum % 10 != 0) {
-        hundredstr += extradecades[hundrednum % 10]
+    hundredStr += hundreds[hundredNum / 100]
+    if (hundredNum / 10 % 10 == 1 && hundredNum % 10 != 0) {
+        hundredStr += extraDecades[hundredNum % 10]
     } else {
-        hundredstr += decades[hundrednum / 10 % 10]
-        hundredstr += when (hundrednum % 10) {
+        hundredStr += decades[hundredNum / 10 % 10]
+        hundredStr += when (hundredNum % 10) {
             0 -> ""
             1 -> "один "
             2 -> "два "
@@ -392,6 +392,6 @@ fun russian(n: Int): String {
             else -> ""
         }
     }
-    return if (thousandnum != 0 && thousandnum % 10 == 0 || thousandnum / 10 % 10 == 1 && thousandnum % 10 != 0) (thousandstr + "тысяч " + hundredstr).trim()
-    else (thousandstr + hundredstr).trim()
+    return if (thousandNum != 0 && thousandNum % 10 == 0 || thousandNum / 10 % 10 == 1 && thousandNum % 10 != 0) (thousandStr + "тысяч " + hundredStr).trim()
+    else (thousandStr + hundredStr).trim()
 }
